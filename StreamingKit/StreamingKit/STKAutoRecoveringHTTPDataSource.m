@@ -64,7 +64,7 @@ static uint64_t GetTickCount(void)
 @interface STKAutoRecoveringHTTPDataSource()
 {
     int serial;
-	int waitSeconds;
+    int waitSeconds;
     NSTimer* timeoutTimer;
     BOOL waitingForNetwork;
     uint64_t ticksWhenLastDataReceived;
@@ -147,7 +147,7 @@ static void PopulateOptionsWithDefault(STKAutoRecoveringHTTPDataSourceOptions* o
     
     if (SCNetworkReachabilitySetCallback(reachabilityRef, ReachabilityCallback, &context))
     {
-		if(SCNetworkReachabilityScheduleWithRunLoop(reachabilityRef, runLoop.getCFRunLoop, kCFRunLoopDefaultMode))
+        if(SCNetworkReachabilityScheduleWithRunLoop(reachabilityRef, runLoop.getCFRunLoop, kCFRunLoopDefaultMode))
         {
             retVal = YES;
         }
@@ -167,8 +167,8 @@ static void PopulateOptionsWithDefault(STKAutoRecoveringHTTPDataSourceOptions* o
         timeoutTimer = nil;
     }
     
-	ticksWhenLastDataReceived = GetTickCount();
-	
+    ticksWhenLastDataReceived = GetTickCount();
+    
     [self createTimeoutTimer];
     
     return YES;
@@ -250,9 +250,17 @@ static void PopulateOptionsWithDefault(STKAutoRecoveringHTTPDataSourceOptions* o
 
 -(void) seekToOffset:(int64_t)offset
 {
-	ticksWhenLastDataReceived = GetTickCount();
-	
-	[super seekToOffset:offset];
+    ticksWhenLastDataReceived = GetTickCount();
+    
+    [super seekToOffset:offset];
+}
+
+- (BOOL)overrideSupportsSeek {
+    return self.innerDataSource.overrideSupportsSeek;
+}
+
+- (void)setOverrideSupportsSeek:(BOOL)overrideSupportsSeek {
+    self.innerDataSource.overrideSupportsSeek = overrideSupportsSeek;
 }
 
 -(void) close
@@ -315,10 +323,10 @@ static void PopulateOptionsWithDefault(STKAutoRecoveringHTTPDataSourceOptions* o
     
     NSLog(@"attemptReconnect %lld/%lld", self.position, self.length);
     
-	if (self.innerDataSource.eventsRunLoop)
-	{
-		[self.innerDataSource reconnect];
-	}
+    if (self.innerDataSource.eventsRunLoop)
+    {
+        [self.innerDataSource reconnect];
+    }
 }
 
 -(void) attemptReconnectWithTimer:(NSTimer*)timer
@@ -335,8 +343,8 @@ static void PopulateOptionsWithDefault(STKAutoRecoveringHTTPDataSourceOptions* o
         return;
     }
     
-	waitingForNetwork = NO;
-	
+    waitingForNetwork = NO;
+    
     NSRunLoop* runLoop = self.innerDataSource.eventsRunLoop;
     
     if (runLoop == nil)
@@ -359,8 +367,8 @@ static void PopulateOptionsWithDefault(STKAutoRecoveringHTTPDataSourceOptions* o
 
 -(void) dataSourceEof:(STKDataSource*)dataSource
 {
-	NSLog(@"dataSourceEof");
-	
+    NSLog(@"dataSourceEof");
+    
     if ([self position] < [self length])
     {
         [self processRetryOnError];

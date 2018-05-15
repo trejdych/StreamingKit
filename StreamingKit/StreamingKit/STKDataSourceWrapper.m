@@ -1,9 +1,9 @@
 /**********************************************************************************
  AudioPlayer.m
-
+ 
  Created by Thong Nguyen on 16/10/2012.
  https://github.com/tumtumtum/audjustable
-
+ 
  Copyright (c) 2012 Thong Nguyen (tumtumtum@gmail.com). All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
