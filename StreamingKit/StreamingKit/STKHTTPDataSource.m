@@ -425,7 +425,7 @@
     
     eventsRunLoop = savedEventsRunLoop;
 	
-    [self seekToOffset:self->supportsSeek ? self.position : 0];
+    [self seekToOffset:self.supportsSeek ? self.position : 0];
 }
 
 -(void) seekToOffset:(SInt64)offset
@@ -444,7 +444,7 @@
     
     self->isInErrorState = NO;
     
-    if (!self->supportsSeek && offset != self->relativePosition)
+    if (!self.supportsSeek && offset != self->relativePosition)
     {
         return;
     }
@@ -693,6 +693,9 @@
 
 -(BOOL) supportsSeek
 {
+    if (self.overrideSupportsSeek == YES) {
+        return YES;
+    }
     return self->supportsSeek;
 }
 
