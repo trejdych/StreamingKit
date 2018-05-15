@@ -35,7 +35,7 @@
 #import "STKDataSource.h"
 
 @implementation STKDataSource
-@synthesize delegate;
+@synthesize delegate, overrideSupportsSeek;
 
 -(SInt64) length
 {

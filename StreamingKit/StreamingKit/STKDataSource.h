@@ -48,6 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface STKDataSource : NSObject
 
+@property (readwrite, assign) BOOL overrideSupportsSeek;
 @property (readonly) BOOL supportsSeek;
 @property (readonly) SInt64 position;
 @property (readonly) SInt64 length;

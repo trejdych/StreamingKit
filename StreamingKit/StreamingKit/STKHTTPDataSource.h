@@ -46,7 +46,6 @@ typedef void(^STKAsyncURLProvider)(STKHTTPDataSource* dataSource, BOOL forSeek, 
 
 @property (readonly, retain) NSURL* url;
 @property (readonly) UInt32 httpStatusCode;
-@property (readwrite, assign) BOOL overrideSupportsSeek;
 
 +(AudioFileTypeID) audioFileTypeHintFromMimeType:(NSString*)fileExtension;
 -(instancetype) initWithURL:(NSURL*)url;
